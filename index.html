@@ -190,6 +190,22 @@
     font-weight: bold;
     color: #ff7b00;
   }
+  .trophy-display {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: bold;
+    font-size: 1.6rem;
+  }
+  .trophy-icon {
+    width: 32px;
+    height: 32px;
+    filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.3));
+  }
   #cr-deck {
     list-style: none;
     padding: 0;
@@ -294,7 +310,7 @@
       <span id="cr-username">Xxghostshadow</span>
     </p>
     <p>
-      <strong>Trophies:</strong> <span id="cr-trophies"></span>
+      <span id="cr-trophies"></span>
     </p>
     <h3>Current Deck</h3>
     <ul id="cr-deck"></ul>
@@ -470,7 +486,13 @@ fetch(CR_API_URL)
     document.getElementById("cr-data").style.display = "block";
 
     if(data.trophies !== undefined && data.trophies !== null) {
-      document.getElementById("cr-trophies").textContent = data.trophies;
+      const trophiesEl = document.getElementById("cr-trophies");
+      trophiesEl.innerHTML = `
+        <span class="trophy-display">
+          <img src="https://cdns3.royaleapi.com/cdn-cgi/image/w=64,h=64,format=auto/static/img/ui/trophy.png" alt="Trophy" class="trophy-icon">
+          ${data.trophies.toLocaleString()}
+        </span>
+      `;
     } else {
       document.getElementById("cr-trophies").textContent = "N/A";
     }
