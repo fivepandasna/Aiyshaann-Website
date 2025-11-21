@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const fetch = require("node-fetch");
 const cors = require("cors");
-
 const app = express();
 app.use(cors());
 
@@ -15,16 +14,18 @@ app.get("/api/clashroyale", async (req, res) => {
         Authorization: `Bearer ${process.env.CR_API_KEY}`
       }
     });
-
     const data = await response.json();
-
-    const deckNames = data.currentDeck.map(card => card.name);
-
+    
+    // Return card objects with names and icon URLs
     res.json({
       trophies: data.trophies,
-      currentDeck: deckNames
+      currentDeck: data.currentDeck.map(card => ({ 
+        name: card.name,
+        iconUrl: card.iconUrls?.medium || null
+      }))
     });
   } catch (err) {
+    console.error("Error fetching CR data:", err);
     res.status(500).json({ error: "Failed to fetch CR data" });
   }
 });

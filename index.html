@@ -186,12 +186,42 @@
     font-size: 1.4rem;
     margin-bottom: 1rem;
   }
+  #cr-username {
+    font-weight: bold;
+    color: #ff7b00;
+  }
   #cr-deck {
     list-style: none;
     padding: 0;
-    font-size: 1.2rem;
-    line-height: 1.8;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .cr-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #1a1a1a;
+    border-radius: 8px;
+    padding: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .cr-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(255, 123, 0, 0.3);
+  }
+  .cr-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+  }
+  .cr-card-name {
+    font-size: 0.9rem;
     color: #ddd;
+    text-align: center;
   }
   #cr-error {
     display: none;
@@ -247,7 +277,7 @@
   <div id="cr-loading">Loading stats...</div>
   <div id="cr-data">
     <p>
-      <strong>Player Tag:</strong> #RVRLCJ8CP
+      <span id="cr-username">Xxghostshadow</span>
     </p>
     <p>
       <strong>Trophies:</strong> <span id="cr-trophies"></span>
@@ -424,7 +454,7 @@ fetch(CR_API_URL)
   .then(data => {
     document.getElementById("cr-loading").style.display = "none";
     document.getElementById("cr-data").style.display = "block";
-    
+
     if(data.trophies !== undefined && data.trophies !== null) {
       document.getElementById("cr-trophies").textContent = data.trophies;
     } else {
@@ -436,7 +466,29 @@ fetch(CR_API_URL)
     if(Array.isArray(data.currentDeck) && data.currentDeck.length){
       data.currentDeck.forEach(card => {
         const li = document.createElement("li");
-        li.textContent = card;
+        li.className = "cr-card";
+        
+        const img = document.createElement("img");
+        // Use the icon URL from the API if available, otherwise construct it
+        if (card.iconUrl) {
+          img.src = card.iconUrl;
+        } else {
+          // Fallback: construct URL from card name
+          const cardUrl = card.name.toLowerCase().replace(/\s+/g, '-').replace(/\./g, '');
+          img.src = `https://api-assets.clashroyale.com/cards/300/${cardUrl}.png`;
+        }
+        img.alt = card.name;
+        img.onerror = function() {
+          // Fallback if image fails to load
+          this.style.display = 'none';
+        };
+        
+        const name = document.createElement("div");
+        name.className = "cr-card-name";
+        name.textContent = card.name;
+        
+        li.appendChild(img);
+        li.appendChild(name);
         deckList.appendChild(li);
       });
     } else {
