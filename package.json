@@ -12,11 +12,19 @@
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "node-fetch": "^2.6.7"
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "node-fetch": "^2.7.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
-  }
+    "nodemon": "^3.1.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fivepandasna/Aiyshaann-Website.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fivepandasna/Aiyshaann-Website/issues"
+  },
+  "homepage": "https://github.com/fivepandasna/Aiyshaann-Website#readme"
 }

@@ -160,28 +160,44 @@
   .arrow.left { left:30px; }
   .arrow.right { right:30px; }
 
-  /* NEW: Clash Royale Stats Section */
+  /* Clash Royale Stats Section */
   #cr-stats {
-    padding: 3rem 5%;
+    padding: 4rem 5%;
+    text-align: center;
   }
-  .stats-container h2 {
-    font-size: 2rem;
+  #cr-stats h2 {
+    font-size: 2.2rem;
     color: #ff7b00;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
   }
-  .stats-container h3 {
+  #cr-stats h3 {
+    font-size: 1.6rem;
+    color: #ff7b00;
+    margin: 1.5rem 0 1rem;
+  }
+  #cr-loading {
+    color: #ccc;
+    font-size: 1.2rem;
+  }
+  #cr-data {
+    display: none;
+  }
+  #cr-data p {
     font-size: 1.4rem;
-    color: #ff7b00;
-    margin-top: 1.5rem;
-    margin-bottom: 0.7rem;
+    margin-bottom: 1rem;
   }
   #cr-deck {
     list-style: none;
-    padding-left: 0;
-  }
-  #cr-deck li {
-    margin-bottom: 0.5rem;
+    padding: 0;
+    font-size: 1.2rem;
+    line-height: 1.8;
     color: #ddd;
+  }
+  #cr-error {
+    display: none;
+    color: #ff4444;
+    margin-top: 1rem;
+    font-size: 1.1rem;
   }
 </style>
 </head>
@@ -225,17 +241,22 @@
   </div>
 </section>
 
-<!-- ⭐ NEW CLASH ROYALE STATS SECTION ⭐ -->
+<!-- Clash Royale Stats Section -->
 <section id="cr-stats" class="content-area">
-  <div class="stats-container">
-    <h2>Clash Royale Stats</h2>
-    <p><strong>Player Tag:</strong> #RVRLCJ8CP</p>
-    <p><strong>Trophies:</strong> <span id="cr-trophies">Loading...</span></p>
-
+  <h2>Clash Royale Stats</h2>
+  <div id="cr-loading">Loading stats...</div>
+  <div id="cr-data">
+    <p>
+      <strong>Player Tag:</strong> #RVRLCJ8CP
+    </p>
+    <p>
+      <strong>Trophies:</strong> <span id="cr-trophies"></span>
+    </p>
     <h3>Current Deck</h3>
-    <ul id="cr-deck">
-      <li>Loading deck…</li>
-    </ul>
+    <ul id="cr-deck"></ul>
+  </div>
+  <div id="cr-error">
+    Failed to load stats. Please try again later.
   </div>
 </section>
 
@@ -392,13 +413,18 @@ lightbox.addEventListener("touchend",(e)=>{
   }
 });
 
-// --- Fetch Clash Royale stats from backend ---
-fetch("/api/clashroyale")
+// Fetch Clash Royale Stats
+const CR_API_URL = "/api/clashroyale";
+
+fetch(CR_API_URL)
   .then(res => {
     if(!res.ok) throw new Error("Network response was not ok");
     return res.json();
   })
   .then(data => {
+    document.getElementById("cr-loading").style.display = "none";
+    document.getElementById("cr-data").style.display = "block";
+    
     if(data.trophies !== undefined && data.trophies !== null) {
       document.getElementById("cr-trophies").textContent = data.trophies;
     } else {
@@ -414,16 +440,15 @@ fetch("/api/clashroyale")
         deckList.appendChild(li);
       });
     } else {
-      deckList.innerHTML = "<li>No deck data</li>";
+      deckList.innerHTML = "<li>No deck data available</li>";
     }
   })
   .catch(err => {
     console.error("Failed to load Clash Royale data:", err);
-    document.getElementById("cr-trophies").textContent = "Error";
-    document.getElementById("cr-deck").innerHTML = "<li>Error loading deck</li>";
+    document.getElementById("cr-loading").style.display = "none";
+    document.getElementById("cr-error").style.display = "block";
   });
 </script>
 
 </body>
 </html>
-
