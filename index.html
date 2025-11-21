@@ -229,6 +229,13 @@
     font-size: 0.9rem;
     color: #ddd;
     text-align: center;
+    margin-bottom: 0.25rem;
+  }
+  .cr-card-level {
+    font-size: 0.8rem;
+    color: #ff7b00;
+    text-align: center;
+    font-weight: 600;
   }
   #cr-error {
     display: none;
@@ -470,6 +477,16 @@ fetch(CR_API_URL)
 
     const deckList = document.getElementById("cr-deck");
     deckList.innerHTML = "";
+    
+    // Rarity adjustment for display level
+    const rarityAdjustment = {
+      'common': 0,
+      'rare': 2,
+      'epic': 5,
+      'legendary': 8,
+      'champion': 10
+    };
+    
     if(Array.isArray(data.currentDeck) && data.currentDeck.length){
       data.currentDeck.forEach(card => {
         const li = document.createElement("li");
@@ -502,8 +519,18 @@ fetch(CR_API_URL)
         name.className = "cr-card-name";
         name.textContent = card.name + (hasEvolution ? " ⚡" : "");
 
+        // Calculate display level based on rarity
+        const rarity = (card.rarity || 'common').toLowerCase();
+        const adjustment = rarityAdjustment[rarity] || 0;
+        const displayLevel = card.level + adjustment;
+
+        const level = document.createElement("div");
+        level.className = "cr-card-level";
+        level.textContent = `Level ${displayLevel}`;
+
         li.appendChild(img);
         li.appendChild(name);
+        li.appendChild(level);
         deckList.appendChild(li);
       });
     } else {

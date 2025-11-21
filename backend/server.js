@@ -13,14 +13,16 @@ app.get("/api/clashroyale", async (req, res) => {
       }
     });
     const data = await response.json();
+    
     // Return card objects with names, icon URLs, levels, and evolution status
     res.json({
       trophies: data.trophies,
       currentDeck: data.currentDeck.map(card => ({
         name: card.name,
         iconUrl: card.iconUrls?.medium || null,
-        evoIconUrl: card.iconUrls?.evolutionMedium || null, // Evolution icon
-        level: card.level,
+        evoIconUrl: card.iconUrls?.evolutionMedium || null,
+        level: card.level || 0,
+        rarity: card.rarity || 'common',  // Add rarity
         maxLevel: card.maxLevel,
         evolutionLevel: card.evolutionLevel || null,
         maxEvolutionLevel: card.maxEvolutionLevel || null
