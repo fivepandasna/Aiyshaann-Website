@@ -19,6 +19,7 @@ app.get("/api/clashroyale", async (req, res) => {
       currentDeck: data.currentDeck.map(card => ({
         name: card.name,
         iconUrl: card.iconUrls?.medium || null,
+        evoIconUrl: card.iconUrls?.evolutionMedium || null, // Evolution icon
         level: card.level,
         maxLevel: card.maxLevel,
         evolutionLevel: card.evolutionLevel || null,

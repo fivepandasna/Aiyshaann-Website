@@ -474,26 +474,34 @@ fetch(CR_API_URL)
       data.currentDeck.forEach(card => {
         const li = document.createElement("li");
         li.className = "cr-card";
-        
+
         const img = document.createElement("img");
-        // Use the icon URL from the API if available, otherwise construct it
-        if (card.iconUrl) {
+        
+        // Check if card has an active evolution
+        const hasEvolution = card.evolutionLevel && card.evolutionLevel > 0;
+        
+        if (hasEvolution && card.evoIconUrl) {
+          // Use evolution icon if evolution is active
+          img.src = card.evoIconUrl;
+        } else if (card.iconUrl) {
+          // Use regular icon
           img.src = card.iconUrl;
         } else {
           // Fallback: construct URL from card name
           const cardUrl = card.name.toLowerCase().replace(/\s+/g, '-').replace(/\./g, '');
           img.src = `https://api-assets.clashroyale.com/cards/300/${cardUrl}.png`;
         }
-        img.alt = card.name;
+        
+        img.alt = card.name + (hasEvolution ? " (Evolution)" : "");
         img.onerror = function() {
           // Fallback if image fails to load
           this.style.display = 'none';
         };
-        
+
         const name = document.createElement("div");
         name.className = "cr-card-name";
-        name.textContent = card.name;
-        
+        name.textContent = card.name + (hasEvolution ? " ⚡" : "");
+
         li.appendChild(img);
         li.appendChild(name);
         deckList.appendChild(li);
