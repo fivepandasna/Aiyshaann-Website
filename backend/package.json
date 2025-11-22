@@ -1,14 +1,14 @@
 {
-  "name": "clash-stats-site",
+  "name": "aiyshaann-clash-site",
   "version": "1.0.0",
-  "description": "Website that displays Clash Royale stats via a small Node backend",
+  "description": "Clash Royale API Wrapper for Aiyshaann Nejeruban's website",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ashaan Dalgliesh",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
