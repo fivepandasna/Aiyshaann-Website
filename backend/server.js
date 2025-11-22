@@ -2,14 +2,27 @@ require("dotenv").config();
 const express = require("express");
 const fetch = require("node-fetch");
 const cors = require("cors");
+const rateLimit = require("express-rate-limit");
 const app = express();
 app.use(cors());
 
 const PLAYER_TAG = "RVRLCJ8CP";
-const CACHE_DURATION = 60 * 60 * 1000; // 60 minutes in milliseconds
+const CACHE_DURATION = 60 * 60 * 1000; // 60 minutes
 
 let cachedData = null;
 let lastFetchTime = 0;
+
+// Rate limiting: 10 requests per minute per IP
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 30, // limit each IP to 30 requests per minute
+  message: { error: "Too many requests, please try again later." },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Apply rate limiter to all /api routes
+app.use("/api/", limiter);
 
 app.get("/api/clashroyale", async (req, res) => {
   try {
@@ -21,7 +34,7 @@ app.get("/api/clashroyale", async (req, res) => {
       return res.json(cachedData);
     }
     
-    // Fetch fresh data from API
+    // Fetch fresh data from clash API
     console.log("Fetching fresh data from API");
     const response = await fetch(`https://api.clashroyale.com/v1/players/%23${PLAYER_TAG}`, {
       headers: {
@@ -30,7 +43,7 @@ app.get("/api/clashroyale", async (req, res) => {
     });
     const data = await response.json();
     
-    // Cache the processed data
+    // Cache data
     cachedData = {
       trophies: data.trophies,
       currentDeck: data.currentDeck.map(card => ({
