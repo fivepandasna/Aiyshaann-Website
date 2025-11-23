@@ -1,570 +1,833 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Aiyshaann Nejeruban</title>
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html, body { overflow-x:hidden; width:100%; min-height:100%; }
-  body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#0f0f0f; color:#f5f5f5; line-height:1.6; scroll-behavior:smooth; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Aiyshaann Nejeruban</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        overflow-x: hidden;
+        width: 100%;
+        min-height: 100%;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #0f0f0f;
+        color: #f5f5f5;
+        line-height: 1.6;
+        scroll-behavior: smooth;
+      }
 
-  header {
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    width:100vw;
-    background:
-      radial-gradient(circle at 20% 80%, rgba(255, 123, 0, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(255, 0, 87, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 40% 40%, rgba(122, 0, 255, 0.1) 0%, transparent 50%),
-      linear-gradient(135deg, #121212 0%, #1c1c1c 50%, #2a2a2a 100%);
-    position:relative;
-    text-align:center;
-    cursor:pointer;
-    padding:1rem;
-    overflow:hidden;
-  }
+      header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+        background:
+          radial-gradient(
+            circle at 20% 80%,
+            rgba(255, 123, 0, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(255, 0, 87, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 40% 40%,
+            rgba(122, 0, 255, 0.1) 0%,
+            transparent 50%
+          ),
+          linear-gradient(135deg, #121212 0%, #1c1c1c 50%, #2a2a2a 100%);
+        position: relative;
+        text-align: center;
+        cursor: pointer;
+        padding: 1rem;
+        overflow: hidden;
+      }
 
-  header::before {
-    content:'';
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    background-image:
-      linear-gradient(45deg, rgba(255, 123, 0, 0.03) 25%, transparent 25%),
-      linear-gradient(-45deg, rgba(255, 0, 87, 0.03) 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, rgba(122, 0, 255, 0.03) 75%),
-      linear-gradient(-45deg, transparent 75%, rgba(255, 123, 0, 0.02) 75%);
-    background-size: 60px 60px;
-    background-position: 0 0, 0 30px, 30px -30px, -30px 0px;
-    animation: float 20s ease-in-out infinite;
-    pointer-events:none;
-  }
+      header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image:
+          linear-gradient(45deg, rgba(255, 123, 0, 0.03) 25%, transparent 25%),
+          linear-gradient(-45deg, rgba(255, 0, 87, 0.03) 25%, transparent 25%),
+          linear-gradient(45deg, transparent 75%, rgba(122, 0, 255, 0.03) 75%),
+          linear-gradient(-45deg, transparent 75%, rgba(255, 123, 0, 0.02) 75%);
+        background-size: 60px 60px;
+        background-position:
+          0 0,
+          0 30px,
+          30px -30px,
+          -30px 0px;
+        animation: float 20s ease-in-out infinite;
+        pointer-events: none;
+      }
 
-  header::after {
-    content:'';
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    background:
-      radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        rgba(255, 123, 0, 0.08) 0%,
-        rgba(255, 0, 87, 0.05) 40%,
-        transparent 70%),
-      radial-gradient(180px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        rgba(122, 0, 255, 0.06) 0%,
-        transparent 60%);
-    background-blend-mode: screen;
-    mix-blend-mode: overlay;
-    opacity:0;
-    transition:opacity 0.4s ease;
-    pointer-events:none;
-    filter: blur(0.3px);
-  }
+      header::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+          radial-gradient(
+            350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            rgba(255, 123, 0, 0.08) 0%,
+            rgba(255, 0, 87, 0.05) 40%,
+            transparent 70%
+          ),
+          radial-gradient(
+            180px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            rgba(122, 0, 255, 0.06) 0%,
+            transparent 60%
+          );
+        background-blend-mode: screen;
+        mix-blend-mode: overlay;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        pointer-events: none;
+        filter: blur(0.3px);
+      }
 
-  header:hover::after { opacity:1; }
+      header:hover::after {
+        opacity: 1;
+      }
 
-  @keyframes float {
-    0%, 100% { transform: translateX(0px) translateY(0px); }
-    25% { transform: translateX(10px) translateY(-10px); }
-    50% { transform: translateX(-5px) translateY(10px); }
-    75% { transform: translateX(-10px) translateY(-5px); }
-  }
-  header h1 { font-size:clamp(2.5rem, 10vw, 5rem); font-weight:700; letter-spacing:2px; background:linear-gradient(to right,#ff7b00,#ff0057,#7a00ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation:fadeIn 2s ease-in-out; margin-bottom:1rem; word-wrap:break-word; text-align:center; }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateX(0px) translateY(0px);
+        }
+        25% {
+          transform: translateX(10px) translateY(-10px);
+        }
+        50% {
+          transform: translateX(-5px) translateY(10px);
+        }
+        75% {
+          transform: translateX(-10px) translateY(-5px);
+        }
+      }
+      header h1 {
+        font-size: clamp(2.5rem, 10vw, 5rem);
+        font-weight: 700;
+        letter-spacing: 2px;
+        background: linear-gradient(to right, #ff7b00, #ff0057, #7a00ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: fadeIn 2s ease-in-out;
+        margin-bottom: 1rem;
+        word-wrap: break-word;
+        text-align: center;
+      }
 
-  .typing-container {
-    font-size:clamp(1.25rem, 5vw, 2.5rem);
-    font-weight:400;
-    color:#ff7b00;
-    display:inline-block;
-    border-right:2px solid #ff7b00;
-    padding-right:8px;
-    animation:blink 0.7s step-end infinite alternate;
-    letter-spacing:1px;
-    line-height:1.4;
-    min-height:clamp(1.75rem, 7vw, 3.5rem);
-    vertical-align:middle;
-    text-align:center;
-    word-wrap:break-word;
-  }
+      .typing-container {
+        font-size: clamp(1.25rem, 5vw, 2.5rem);
+        font-weight: 400;
+        color: #ff7b00;
+        display: inline-block;
+        border-right: 2px solid #ff7b00;
+        padding-right: 8px;
+        animation: blink 0.7s step-end infinite alternate;
+        letter-spacing: 1px;
+        line-height: 1.4;
+        min-height: clamp(1.75rem, 7vw, 3.5rem);
+        vertical-align: middle;
+        text-align: center;
+        word-wrap: break-word;
+      }
 
-  @keyframes fadeIn { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
-  @keyframes blink { 0%,100% { border-color:transparent; } 50% { border-color:#ff7b00; } }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          border-color: transparent;
+        }
+        50% {
+          border-color: #ff7b00;
+        }
+      }
 
-  .content-area {
-    background:
-      radial-gradient(circle at 25% 25%, rgba(128, 128, 128, 0.08) 0%, transparent 50%),
-      radial-gradient(circle at 75% 75%, rgba(160, 160, 160, 0.05) 0%, transparent 50%),
-      #0f0f0f;
-    position:relative;
-    overflow:hidden;
-  }
+      .content-area {
+        background:
+          radial-gradient(
+            circle at 25% 25%,
+            rgba(128, 128, 128, 0.08) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 75% 75%,
+            rgba(160, 160, 160, 0.05) 0%,
+            transparent 50%
+          ),
+          #0f0f0f;
+        position: relative;
+        overflow: hidden;
+      }
 
-  .content-area::before {
-    content:'';
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    background-image:
-      linear-gradient(30deg, rgba(128, 128, 128, 0.02) 12%, transparent 12.5%, transparent 87%, rgba(128, 128, 128, 0.02) 87.5%, rgba(128, 128, 128, 0.02)),
-      linear-gradient(150deg, rgba(128, 128, 128, 0.02) 12%, transparent 12.5%, transparent 87%, rgba(128, 128, 128, 0.02) 87.5%, rgba(128, 128, 128, 0.02)),
-      linear-gradient(90deg, rgba(160, 160, 160, 0.01) 50%, transparent 50%);
-    background-size: 80px 80px, 80px 80px, 40px 40px;
-    animation: drift 25s linear infinite;
-    pointer-events:none;
-  }
+      .content-area::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image:
+          linear-gradient(
+            30deg,
+            rgba(128, 128, 128, 0.02) 12%,
+            transparent 12.5%,
+            transparent 87%,
+            rgba(128, 128, 128, 0.02) 87.5%,
+            rgba(128, 128, 128, 0.02)
+          ),
+          linear-gradient(
+            150deg,
+            rgba(128, 128, 128, 0.02) 12%,
+            transparent 12.5%,
+            transparent 87%,
+            rgba(128, 128, 128, 0.02) 87.5%,
+            rgba(128, 128, 128, 0.02)
+          ),
+          linear-gradient(90deg, rgba(160, 160, 160, 0.01) 50%, transparent 50%);
+        background-size:
+          80px 80px,
+          80px 80px,
+          40px 40px;
+        animation: drift 25s linear infinite;
+        pointer-events: none;
+      }
 
-  @keyframes drift {
-    0% { transform: translateX(0px) translateY(0px); }
-    25% { transform: translateX(-15px) translateY(10px); }
-    50% { transform: translateX(10px) translateY(-15px); }
-    75% { transform: translateX(15px) translateY(5px); }
-    100% { transform: translateX(0px) translateY(0px); }
-  }
+      @keyframes drift {
+        0% {
+          transform: translateX(0px) translateY(0px);
+        }
+        25% {
+          transform: translateX(-15px) translateY(10px);
+        }
+        50% {
+          transform: translateX(10px) translateY(-15px);
+        }
+        75% {
+          transform: translateX(15px) translateY(5px);
+        }
+        100% {
+          transform: translateX(0px) translateY(0px);
+        }
+      }
 
-  .gallery {
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:2rem;
-    padding:4rem 5%;
-    width:100%;
-    max-width:100vw;
-  }
-  .card { background:#1a1a1a; border-radius:12px; overflow:hidden; box-shadow:0 10px 20px rgba(0,0,0,0.5); transition:transform 0.3s ease, box-shadow 0.3s ease; cursor:pointer; position:relative; z-index:10; }
-  .card:hover { transform:translateY(-8px); box-shadow:0 15px 30px rgba(0,0,0,0.6); }
-  .card img { width:100%; height:220px; object-fit:cover; display:block; }
-  .card-content { padding:1.5rem; }
-  .card-content h3 { margin-bottom:0.8rem; font-size:1.4rem; color:#ff7b00; }
-  .card-content p { font-size:1rem; color:#ddd; }
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        padding: 4rem 5%;
+        width: 100%;
+        max-width: 100vw;
+      }
+      .card {
+        background: #1a1a1a;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        z-index: 10;
+      }
+      .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+      }
+      .card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        display: block;
+      }
+      .card-content {
+        padding: 1.5rem;
+      }
+      .card-content h3 {
+        margin-bottom: 0.8rem;
+        font-size: 1.4rem;
+        color: #ff7b00;
+      }
+      .card-content p {
+        font-size: 1rem;
+        color: #ddd;
+      }
 
-  footer { text-align:center; padding:2rem; font-size:0.9rem; color:#999; width:100%; }
+      footer {
+        text-align: center;
+        padding: 2rem;
+        font-size: 0.9rem;
+        color: #999;
+        width: 100%;
+      }
 
-  /* Lightbox */
-  #lightbox { position:fixed; top:0; left:0; width:100%; height:100%; display:flex; justify-content:center; align-items:center; background:rgba(0,0,0,0); opacity:0; pointer-events:none; transition:opacity 0.5s ease, background 0.5s ease; z-index:1000; overflow:hidden; }
-  #lightbox.show { opacity:1; pointer-events:auto; background:rgba(0,0,0,0.9); }
-  #lightbox img { max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 0 30px rgba(255,255,255,0.2); position:absolute; top:50%; left:50%; transform:translate(-50%, -50%) scale(0.8); opacity:0; transition:transform 0.5s ease, opacity 0.5s ease; }
+      /* Lightbox */
+      #lightbox {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0);
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 0.5s ease,
+          background 0.5s ease;
+        z-index: 1000;
+        overflow: hidden;
+      }
+      #lightbox.show {
+        opacity: 1;
+        pointer-events: auto;
+        background: rgba(0, 0, 0, 0.9);
+      }
+      #lightbox img {
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 10px;
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0;
+        transition:
+          transform 0.5s ease,
+          opacity 0.5s ease;
+      }
 
-  #lightbox img.active { transform:translate(-50%, -50%) scale(1); opacity:1; }
+      #lightbox img.active {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
 
-  .arrow { position:absolute; top:50%; transform:translateY(-50%); font-size:3rem; color:#fff; cursor:pointer; user-select:none; opacity:0.7; transition:opacity 0.2s ease; z-index:1001; }
-  .arrow:hover { opacity:1; }
-  .arrow.left { left:30px; }
-  .arrow.right { right:30px; }
+      .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 3rem;
+        color: #fff;
+        cursor: pointer;
+        user-select: none;
+        opacity: 0.7;
+        transition: opacity 0.2s ease;
+        z-index: 1001;
+      }
+      .arrow:hover {
+        opacity: 1;
+      }
+      .arrow.left {
+        left: 30px;
+      }
+      .arrow.right {
+        right: 30px;
+      }
 
-  /* Clash Royale Stats Section */
-  #cr-stats {
-    padding: 4rem 5%;
-    text-align: center;
-  }
-  #cr-stats h2 {
-    font-size: 2.2rem;
-    color: #ff7b00;
-    margin-bottom: 2rem;
-  }
-  #cr-stats h3 {
-    font-size: 1.6rem;
-    color: #ff7b00;
-    margin: 1.5rem 0 1rem;
-  }
-  #cr-loading {
-    color: #ccc;
-    font-size: 1.2rem;
-  }
-  #cr-data {
-    display: none;
-  }
-  #cr-data p {
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
-  }
-  #cr-username {
-    font-weight: bold;
-    color: #ff7b00;
-  }
-  .trophy-display {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: bold;
-    font-size: 1.6rem;
-  }
-  .trophy-icon {
-    width: 32px;
-    height: 32px;
-    filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.3));
-  }
-  #cr-deck {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-    max-width: 800px;
-    margin: 0 auto;
-  }
+      /* Clash Royale Stats Section */
+      #cr-stats {
+        padding: 4rem 5%;
+        text-align: center;
+      }
+      #cr-stats h2 {
+        font-size: 2.2rem;
+        color: #ff7b00;
+        margin-bottom: 2rem;
+      }
+      #cr-stats h3 {
+        font-size: 1.6rem;
+        color: #ff7b00;
+        margin: 1.5rem 0 1rem;
+      }
+      #cr-loading {
+        color: #ccc;
+        font-size: 1.2rem;
+      }
+      #cr-data {
+        display: none;
+      }
+      #cr-data p {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+      }
+      #cr-username {
+        font-weight: bold;
+        color: #ff7b00;
+      }
+      .trophy-display {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: linear-gradient(
+          135deg,
+          #ffd700 0%,
+          #ffed4e 50%,
+          #ffd700 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: bold;
+        font-size: 1.6rem;
+      }
+      .trophy-icon {
+        width: 32px;
+        height: 32px;
+        filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.3));
+      }
+      #cr-deck {
+        list-style: none;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+        max-width: 800px;
+        margin: 0 auto;
+      }
 
-@media (max-width: 768px) {
-  #cr-deck {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+      @media (max-width: 768px) {
+        #cr-deck {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
 
-  .cr-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: #1a1a1a;
-    border-radius: 8px;
-    padding: 1rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  .cr-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(255, 123, 0, 0.3);
-  }
-  .cr-card img {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    margin-bottom: 0.5rem;
-  }
-  .cr-card-name {
-    font-size: 0.9rem;
-    color: #ddd;
-    text-align: center;
-    margin-bottom: 0.25rem;
-  }
-  .cr-card-level {
-    font-size: 0.8rem;
-    color: #ff7b00;
-    text-align: center;
-    font-weight: 600;
-  }
-  #cr-error {
-    display: none;
-    color: #ff4444;
-    margin-top: 1rem;
-    font-size: 1.1rem;
-  }
-</style>
-</head>
-<body>
+      .cr-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #1a1a1a;
+        border-radius: 8px;
+        padding: 1rem;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      .cr-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(255, 123, 0, 0.3);
+      }
+      .cr-card img {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+        margin-bottom: 0.5rem;
+      }
+      .cr-card-name {
+        font-size: 0.9rem;
+        color: #ddd;
+        text-align: center;
+        margin-bottom: 0.25rem;
+      }
+      .cr-card-level {
+        font-size: 0.8rem;
+        color: #ff7b00;
+        text-align: center;
+        font-weight: 600;
+      }
+      #cr-error {
+        display: none;
+        color: #ff4444;
+        margin-top: 1rem;
+        font-size: 1.1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1 id="scroll-trigger">Aiyshaann Nejeruban</h1>
+      <div class="typing-container" id="typing"></div>
+    </header>
 
-<header>
-  <h1 id="scroll-trigger">Aiyshaann Nejeruban</h1>
-  <div class="typing-container" id="typing"></div>
-</header>
-
-<section id="gallery" class="content-area">
-  <div class="gallery">
-    <div class="card">
-      <img src="/assets/images/ju-jitsu.jpg" alt="Aiyshaann Ju Jitsu">
-      <div class="card-content">
-        <h3>Master of Ju Jitsu</h3>
-        <p>Aiyshaann Nejeruban is the unrivaled master of Ju Jitsu, combining strength, wisdom, and elegance in every move.</p>
+    <section id="gallery" class="content-area">
+      <div class="gallery">
+        <div class="card">
+          <img src="/assets/images/ju-jitsu.jpg" alt="Aiyshaann Ju Jitsu" />
+          <div class="card-content">
+            <h3>Master of Ju Jitsu</h3>
+            <p>
+              Aiyshaann Nejeruban is the unrivaled master of Ju Jitsu, combining
+              strength, wisdom, and elegance in every move.
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="/assets/images/star.jpg" alt="Maker of Stars" />
+          <div class="card-content">
+            <h3>Maker of the Stars</h3>
+            <p>
+              A visionary beyond his time, Aiyshaann shapes destinies as though
+              crafting the stars themselves.
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="/assets/images/genghis.jpg" alt="Friend of Genghis Khan" />
+          <div class="card-content">
+            <h3>Dear Friend of Genghis Khan</h3>
+            <p>
+              Legends say he was the most trusted companion of Genghis Khan, a
+              bond forged in loyalty and greatness.
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="/assets/images/legacy.jpg" alt="Legacy" />
+          <div class="card-content">
+            <h3>A Timeless Legacy</h3>
+            <p>
+              His legacy endures through history, admired by all as a figure of
+              honor, courage, and brilliance.
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="card">
-      <img src="/assets/images/star.jpg" alt="Maker of Stars">
-      <div class="card-content">
-        <h3>Maker of the Stars</h3>
-        <p>A visionary beyond his time, Aiyshaann shapes destinies as though crafting the stars themselves.</p>
+    </section>
+
+    <!-- Clash Royale Stats Section -->
+    <section id="cr-stats" class="content-area">
+      <h2>Clash Royale Stats</h2>
+      <div id="cr-loading">Loading stats...</div>
+      <div id="cr-data">
+        <p>
+          <span id="cr-username">Xxghostshadow</span>
+        </p>
+        <p>
+          <span id="cr-trophies"></span>
+        </p>
+        <h3>Current Deck</h3>
+        <ul id="cr-deck"></ul>
       </div>
+      <div id="cr-error">Failed to load stats. Please try again later.</div>
+    </section>
+
+    <footer class="content-area">
+      &copy; 2025 Aiyshaann Nejeruban | Crafted with honor
+    </footer>
+
+    <div id="lightbox">
+      <span class="arrow left">&#10094;</span>
+      <span class="arrow right">&#10095;</span>
     </div>
-    <div class="card">
-      <img src="/assets/images/genghis.jpg" alt="Friend of Genghis Khan">
-      <div class="card-content">
-        <h3>Dear Friend of Genghis Khan</h3>
-        <p>Legends say he was the most trusted companion of Genghis Khan, a bond forged in loyalty and greatness.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="/assets/images/legacy.jpg" alt="Legacy">
-      <div class="card-content">
-        <h3>A Timeless Legacy</h3>
-        <p>His legacy endures through history, admired by all as a figure of honor, courage, and brilliance.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- Clash Royale Stats Section -->
-<section id="cr-stats" class="content-area">
-  <h2>Clash Royale Stats</h2>
-  <div id="cr-loading">Loading stats...</div>
-  <div id="cr-data">
-    <p>
-      <span id="cr-username">Xxghostshadow</span>
-    </p>
-    <p>
-      <span id="cr-trophies"></span>
-    </p>
-    <h3>Current Deck</h3>
-    <ul id="cr-deck"></ul>
-  </div>
-  <div id="cr-error">
-    Failed to load stats. Please try again later.
-  </div>
-</section>
+    <script>
+      document
+        .getElementById("scroll-trigger")
+        .addEventListener("click", () => {
+          document
+            .getElementById("gallery")
+            .scrollIntoView({ behavior: "smooth" });
+        });
 
-<footer class="content-area">&copy; 2025 Aiyshaann Nejeruban | Crafted with honor</footer>
+      // Typing effect
+      const titles = [
+        "Master of Ju Jitsu",
+        "Maker of the Stars",
+        "Dear Friend of Genghis Khan",
+        "A Timeless Legacy",
+      ];
+      let typingIndex = 0;
+      let charIndex = 0;
+      const typingEl = document.getElementById("typing");
 
-<div id="lightbox">
-  <span class="arrow left">&#10094;</span>
-  <span class="arrow right">&#10095;</span>
-</div>
+      function type() {
+        if (charIndex < titles[typingIndex].length) {
+          typingEl.textContent += titles[typingIndex][charIndex];
+          charIndex++;
+          setTimeout(type, 120);
+        } else {
+          setTimeout(erase, 1500);
+        }
+      }
 
-<script>
-document.getElementById("scroll-trigger").addEventListener("click",()=>{document.getElementById("gallery").scrollIntoView({behavior:"smooth"});});
+      function erase() {
+        if (charIndex > 0) {
+          typingEl.textContent = titles[typingIndex].substring(
+            0,
+            charIndex - 1,
+          );
+          charIndex--;
+          setTimeout(erase, 80);
+        } else {
+          typingIndex = (typingIndex + 1) % titles.length;
+          setTimeout(type, 500);
+        }
+      }
 
-// Typing effect
-const titles = ["Master of Ju Jitsu","Maker of the Stars","Dear Friend of Genghis Khan","A Timeless Legacy"];
-let typingIndex = 0;
-let charIndex = 0;
-const typingEl = document.getElementById("typing");
+      type(); // start typing
 
-function type(){
-  if(charIndex < titles[typingIndex].length){
-    typingEl.textContent += titles[typingIndex][charIndex];
-    charIndex++;
-    setTimeout(type, 120);
-  } else {
-    setTimeout(erase, 1500);
-  }
-}
+      // Lightbox images
+      const images = [
+        "assets/images/ju-jitsu.jpg",
+        "assets/images/star.jpg",
+        "assets/images/genghis.jpg",
+        "assets/images/legacy.jpg",
+      ];
+      const lightbox = document.getElementById("lightbox");
+      const leftArrow = lightbox.querySelector(".arrow.left");
+      const rightArrow = lightbox.querySelector(".arrow.right");
 
-function erase(){
-  if(charIndex > 0){
-    typingEl.textContent = titles[typingIndex].substring(0,charIndex-1);
-    charIndex--;
-    setTimeout(erase,80);
-  } else {
-    typingIndex = (typingIndex+1)%titles.length;
-    setTimeout(type,500);
-  }
-}
+      let currentIndex = 0;
+      let currentImgElement = null;
 
-type(); // start typing
+      function showLightbox(index) {
+        currentIndex = index;
+        const img = document.createElement("img");
+        img.src = images[currentIndex];
+        img.classList.add("active");
+        lightbox.appendChild(img);
 
-// Lightbox images
-const images = ["assets/images/ju-jitsu.jpg","assets/images/star.jpg","assets/images/genghis.jpg","assets/images/legacy.jpg"];
-const lightbox = document.getElementById("lightbox");
-const leftArrow = lightbox.querySelector(".arrow.left");
-const rightArrow = lightbox.querySelector(".arrow.right");
+        if (currentImgElement) {
+          slideImage(currentImgElement, img, "right");
+        }
+        currentImgElement = img;
 
-let currentIndex = 0;
-let currentImgElement = null;
+        lightbox.classList.add("show");
+        document.body.style.overflow = "hidden";
 
-function showLightbox(index){
-  currentIndex = index;
-  const img = document.createElement("img");
-  img.src = images[currentIndex];
-  img.classList.add("active");
-  lightbox.appendChild(img);
+        document.addEventListener("touchmove", preventScroll, {
+          passive: false,
+        });
+      }
 
-  if(currentImgElement){
-    slideImage(currentImgElement, img, "right");
-  }
-  currentImgElement = img;
+      function hideLightbox() {
+        lightbox.classList.remove("show");
+        if (currentImgElement) {
+          currentImgElement.remove();
+          currentImgElement = null;
+        }
+        document.body.style.overflow = "";
 
-  lightbox.classList.add("show");
-  document.body.style.overflow = "hidden";
+        document.removeEventListener("touchmove", preventScroll, {
+          passive: false,
+        });
+      }
 
-  document.addEventListener("touchmove", preventScroll, { passive:false });
-}
+      function preventScroll(e) {
+        e.preventDefault();
+      }
 
-function hideLightbox(){
-  lightbox.classList.remove("show");
-  if(currentImgElement){
-    currentImgElement.remove();
-    currentImgElement = null;
-  }
-  document.body.style.overflow = "";
+      function slideImage(oldImg, newImg, direction) {
+        const distance = 100;
+        newImg.style.transform = `translate(${direction === "right" ? distance + "%" : "-" + distance + "%"}, -50%) scale(0.8)`;
+        newImg.style.opacity = 0;
+        setTimeout(() => {
+          newImg.classList.add("active");
+          newImg.style.transition = "transform 0.5s ease, opacity 0.5s ease";
+          newImg.style.transform = "translate(-50%, -50%) scale(1)";
+          newImg.style.opacity = 1;
 
-  document.removeEventListener("touchmove", preventScroll, { passive:false });
-}
+          oldImg.style.transition = "transform 0.5s ease, opacity 0.5s ease";
+          oldImg.style.transform = `translate(${direction === "right" ? -distance + "%" : distance + "%"}, -50%) scale(0.8)`;
+          oldImg.style.opacity = 0;
 
-function preventScroll(e){ e.preventDefault(); }
+          setTimeout(() => {
+            oldImg.remove();
+          }, 500);
+        }, 10);
+      }
 
-function slideImage(oldImg, newImg, direction){
-  const distance = 100;
-  newImg.style.transform = `translate(${direction === "right"?distance+"%":"-"+distance+"%"}, -50%) scale(0.8)`;
-  newImg.style.opacity = 0;
-  setTimeout(()=>{
-    newImg.classList.add("active");
-    newImg.style.transition = "transform 0.5s ease, opacity 0.5s ease";
-    newImg.style.transform = "translate(-50%, -50%) scale(1)";
-    newImg.style.opacity = 1;
+      function showNext() {
+        const newIndex = (currentIndex + 1) % images.length;
+        const newImg = document.createElement("img");
+        newImg.src = images[newIndex];
+        lightbox.appendChild(newImg);
+        slideImage(currentImgElement, newImg, "right");
+        currentIndex = newIndex;
+        currentImgElement = newImg;
+      }
 
-    oldImg.style.transition = "transform 0.5s ease, opacity 0.5s ease";
-    oldImg.style.transform = `translate(${direction === "right"?-distance+"%":distance+"%"}, -50%) scale(0.8)`;
-    oldImg.style.opacity = 0;
+      function showPrev() {
+        const newIndex = (currentIndex - 1 + images.length) % images.length;
+        const newImg = document.createElement("img");
+        newImg.src = images[newIndex];
+        lightbox.appendChild(newImg);
+        slideImage(currentImgElement, newImg, "left");
+        currentIndex = newIndex;
+        currentImgElement = newImg;
+      }
 
-    setTimeout(()=>{ oldImg.remove(); }, 500);
-  },10);
-}
+      document.querySelectorAll(".card img").forEach((card, index) => {
+        card.addEventListener("click", () => showLightbox(index));
+      });
+      lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) hideLightbox();
+      });
+      rightArrow.addEventListener("click", (e) => {
+        e.stopPropagation();
+        showNext();
+      });
+      leftArrow.addEventListener("click", (e) => {
+        e.stopPropagation();
+        showPrev();
+      });
 
-function showNext(){
-  const newIndex = (currentIndex+1)%images.length;
-  const newImg = document.createElement("img");
-  newImg.src = images[newIndex];
-  lightbox.appendChild(newImg);
-  slideImage(currentImgElement,newImg,"right");
-  currentIndex = newIndex;
-  currentImgElement = newImg;
-}
+      // Mouse tracking for header glow effect
+      const header = document.querySelector("header");
+      header.addEventListener("mousemove", (e) => {
+        const rect = header.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        header.style.setProperty("--mouse-x", `${x}%`);
+        header.style.setProperty("--mouse-y", `${y}%`);
+      });
 
-function showPrev(){
-  const newIndex = (currentIndex-1+images.length)%images.length;
-  const newImg = document.createElement("img");
-  newImg.src = images[newIndex];
-  lightbox.appendChild(newImg);
-  slideImage(currentImgElement,newImg,"left");
-  currentIndex = newIndex;
-  currentImgElement = newImg;
-}
+      // Keyboard navigation
+      document.addEventListener("keydown", (e) => {
+        if (!lightbox.classList.contains("show")) return;
+        if (e.key === "ArrowRight") {
+          showNext();
+        }
+        if (e.key === "ArrowLeft") {
+          showPrev();
+        }
+        if (e.key === "Escape") {
+          hideLightbox();
+        }
+      });
 
-document.querySelectorAll(".card img").forEach((card,index)=>{card.addEventListener("click",()=>showLightbox(index));});
-lightbox.addEventListener("click",(e)=>{if(e.target===lightbox)hideLightbox();});
-rightArrow.addEventListener("click",(e)=>{e.stopPropagation(); showNext();});
-leftArrow.addEventListener("click",(e)=>{e.stopPropagation(); showPrev();});
+      // Touch swipe support
+      let startX = 0;
+      lightbox.addEventListener("touchstart", (e) => {
+        startX = e.touches[0].clientX;
+      });
+      lightbox.addEventListener("touchend", (e) => {
+        let endX = e.changedTouches[0].clientX;
+        let diff = endX - startX;
+        if (Math.abs(diff) > 50) {
+          if (diff < 0) showNext();
+          else showPrev();
+        }
+      });
 
-// Mouse tracking for header glow effect
-const header = document.querySelector('header');
-header.addEventListener('mousemove', (e) => {
-  const rect = header.getBoundingClientRect();
-  const x = ((e.clientX - rect.left) / rect.width) * 100;
-  const y = ((e.clientY - rect.top) / rect.height) * 100;
-  header.style.setProperty('--mouse-x', `${x}%`);
-  header.style.setProperty('--mouse-y', `${y}%`);
-});
+      // Fetch Clash Royale Stats
+      const CR_API_URL = "/api/clashroyale";
 
-// Keyboard navigation
-document.addEventListener("keydown",(e)=>{
-  if(!lightbox.classList.contains("show")) return;
-  if(e.key === "ArrowRight"){ showNext(); }
-  if(e.key === "ArrowLeft"){ showPrev(); }
-  if(e.key === "Escape"){ hideLightbox(); }
-});
+      fetch(CR_API_URL)
+        .then((res) => {
+          if (!res.ok) throw new Error("Network response was not ok");
+          return res.json();
+        })
+        .then((data) => {
+          document.getElementById("cr-loading").style.display = "none";
+          document.getElementById("cr-data").style.display = "block";
 
-// Touch swipe support
-let startX = 0;
-lightbox.addEventListener("touchstart",(e)=>{ startX = e.touches[0].clientX; });
-lightbox.addEventListener("touchend",(e)=>{
-  let endX = e.changedTouches[0].clientX;
-  let diff = endX - startX;
-  if(Math.abs(diff) > 50){
-    if(diff < 0) showNext();
-    else showPrev();
-  }
-});
-
-// Fetch Clash Royale Stats
-const CR_API_URL = "/api/clashroyale";
-
-fetch(CR_API_URL)
-  .then(res => {
-    if(!res.ok) throw new Error("Network response was not ok");
-    return res.json();
-  })
-  .then(data => {
-    document.getElementById("cr-loading").style.display = "none";
-    document.getElementById("cr-data").style.display = "block";
-
-    if(data.trophies !== undefined && data.trophies !== null) {
-      const trophiesEl = document.getElementById("cr-trophies");
-      trophiesEl.innerHTML = `
+          if (data.trophies !== undefined && data.trophies !== null) {
+            const trophiesEl = document.getElementById("cr-trophies");
+            trophiesEl.innerHTML = `
         <span class="trophy-display">
           <img src="https://cdns3.royaleapi.com/cdn-cgi/image/w=64,h=64,format=auto/static/img/ui/trophy.png" alt="Trophy" class="trophy-icon">
           ${data.trophies.toLocaleString()}
         </span>
       `;
-    } else {
-      document.getElementById("cr-trophies").textContent = "N/A";
-    }
+          } else {
+            document.getElementById("cr-trophies").textContent = "N/A";
+          }
 
-    const deckList = document.getElementById("cr-deck");
-    deckList.innerHTML = "";
-    
-    // Rarity adjustment for display level
-    const rarityAdjustment = {
-      'common': 0,
-      'rare': 2,
-      'epic': 5,
-      'legendary': 8,
-      'champion': 10
-    };
-    
-    if(Array.isArray(data.currentDeck) && data.currentDeck.length){
-      data.currentDeck.forEach(card => {
-        const li = document.createElement("li");
-        li.className = "cr-card";
+          const deckList = document.getElementById("cr-deck");
+          deckList.innerHTML = "";
 
-        const img = document.createElement("img");
-        
-        // Check if card has an active evolution
-        const hasEvolution = card.evolutionLevel && card.evolutionLevel > 0;
-        
-        if (hasEvolution && card.evoIconUrl) {
-          // Use evolution icon if evolution is active
-          img.src = card.evoIconUrl;
-        } else if (card.iconUrl) {
-          // Use regular icon
-          img.src = card.iconUrl;
-        } else {
-          // Fallback: construct URL from card name
-          const cardUrl = card.name.toLowerCase().replace(/\s+/g, '-').replace(/\./g, '');
-          img.src = `https://api-assets.clashroyale.com/cards/300/${cardUrl}.png`;
-        }
-        
-        img.alt = card.name + (hasEvolution ? " (Evolution)" : "");
-        img.onerror = function() {
-          // Fallback if image fails to load
-          this.style.display = 'none';
-        };
+          // Rarity adjustment for display level
+          const rarityAdjustment = {
+            common: 0,
+            rare: 2,
+            epic: 5,
+            legendary: 8,
+            champion: 10,
+          };
 
-        const name = document.createElement("div");
-        name.className = "cr-card-name";
-        name.textContent = card.name + (hasEvolution ? " ⚡" : "");
+          if (Array.isArray(data.currentDeck) && data.currentDeck.length) {
+            data.currentDeck.forEach((card) => {
+              const li = document.createElement("li");
+              li.className = "cr-card";
 
-        // Calculate display level based on rarity
-        const rarity = (card.rarity || 'common').toLowerCase();
-        const adjustment = rarityAdjustment[rarity] || 0;
-        const displayLevel = card.level + adjustment;
+              const img = document.createElement("img");
 
-        const level = document.createElement("div");
-        level.className = "cr-card-level";
-        level.textContent = `Level ${displayLevel}`;
+              // Check if card has an active evolution
+              const hasEvolution =
+                card.evolutionLevel && card.evolutionLevel > 0;
 
-        li.appendChild(img);
-        li.appendChild(name);
-        li.appendChild(level);
-        deckList.appendChild(li);
-      });
-    } else {
-      deckList.innerHTML = "<li>No deck data available</li>";
-    }
-  })
-  .catch(err => {
-    console.error("Failed to load Clash Royale data:", err);
-    document.getElementById("cr-loading").style.display = "none";
-    document.getElementById("cr-error").style.display = "block";
-  });
-</script>
+              if (hasEvolution && card.evoIconUrl) {
+                // Use evolution icon if evolution is active
+                img.src = card.evoIconUrl;
+              } else if (card.iconUrl) {
+                // Use regular icon
+                img.src = card.iconUrl;
+              } else {
+                // Fallback: construct URL from card name
+                const cardUrl = card.name
+                  .toLowerCase()
+                  .replace(/\s+/g, "-")
+                  .replace(/\./g, "");
+                img.src = `https://api-assets.clashroyale.com/cards/300/${cardUrl}.png`;
+              }
 
-</body>
+              img.alt = card.name + (hasEvolution ? " (Evolution)" : "");
+              img.onerror = function () {
+                // Fallback if image fails to load
+                this.style.display = "none";
+              };
+
+              const name = document.createElement("div");
+              name.className = "cr-card-name";
+              name.textContent = card.name + (hasEvolution ? " ⚡" : "");
+
+              // Calculate display level based on rarity
+              const rarity = (card.rarity || "common").toLowerCase();
+              const adjustment = rarityAdjustment[rarity] || 0;
+              const displayLevel = card.level + adjustment;
+
+              const level = document.createElement("div");
+              level.className = "cr-card-level";
+              level.textContent = `Level ${displayLevel}`;
+
+              li.appendChild(img);
+              li.appendChild(name);
+              li.appendChild(level);
+              deckList.appendChild(li);
+            });
+          } else {
+            deckList.innerHTML = "<li>No deck data available</li>";
+          }
+        })
+        .catch((err) => {
+          console.error("Failed to load Clash Royale data:", err);
+          document.getElementById("cr-loading").style.display = "none";
+          document.getElementById("cr-error").style.display = "block";
+        });
+    </script>
+  </body>
 </html>
