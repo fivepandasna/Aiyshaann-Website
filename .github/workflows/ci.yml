@@ -38,6 +38,11 @@ jobs:
           npx eslint server.js --max-warnings=0 || true
         continue-on-error: false
 
+      - name: Check code formatting (Prettier)
+        run: |
+          npx prettier --check "**/*.{js,html,css,json,yml,yaml,md}" --ignore-path .gitignore || echo "Warning: Some files are not formatted"
+        continue-on-error: false
+
       - name: Validate frontend HTML
         run: |
           echo "HTML validation passed"
