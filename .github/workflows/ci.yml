@@ -30,18 +30,18 @@ jobs:
       - name: Check for security vulnerabilities
         working-directory: ./backend
         run: npm audit --audit-level=moderate
-        continue-on-error: true
+        continue-on-error: false
 
       - name: Lint backend code
         working-directory: ./backend
         run: |
           npx eslint server.js --max-warnings=0 || true
-        continue-on-error: true
+        continue-on-error: false
 
       - name: Validate frontend HTML
         run: |
           echo "HTML validation passed"
-        continue-on-error: true
+        continue-on-error: false
 
   build:
     name: Build Check
