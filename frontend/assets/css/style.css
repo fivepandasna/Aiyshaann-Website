@@ -485,3 +485,20 @@ footer {
   margin-top: 1rem;
   font-size: 1.1rem;
 }
+
+/* Japan section hack */
+#japan-trip .gallery {
+  display: flex;
+  justify-content: center;
+}
+
+#japan-trip .japan-card {
+  max-width: 420px;
+  width: 100%;
+}
+
+#japan-trip .japan-card img {
+  height: auto;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+}
