@@ -50,6 +50,7 @@ const images = [
   "assets/images/star.jpg",
   "assets/images/genghis.jpg",
   "assets/images/legacy.jpg",
+  "assets/images/japan.jpg",
 ];
 const lightbox = document.getElementById("lightbox");
 const leftArrow = lightbox.querySelector(".arrow.left");
@@ -136,6 +137,9 @@ function showPrev() {
 }
 
 document.querySelectorAll(".card img").forEach((card, index) => {
+  // Skip the torii gate image
+  if (card.classList.contains('torii-image')) return;
+  
   card.addEventListener("click", () => showLightbox(index));
 });
 lightbox.addEventListener("click", (e) => {
@@ -187,6 +191,39 @@ lightbox.addEventListener("touchend", (e) => {
     else showPrev();
   }
 });
+
+// Torii Gate Zoom Effect
+const toriiOverlay = document.getElementById("torii-overlay");
+const japanSection = document.getElementById("japan-trip");
+const backBtn = document.getElementById("japan-back-btn");
+
+if (toriiOverlay) {
+  toriiOverlay.addEventListener("click", () => {
+    toriiOverlay.classList.add("zooming");
+    japanSection.classList.add("revealed");
+    
+    setTimeout(() => {
+      toriiOverlay.classList.add("hidden");
+    }, 1200);
+  });
+}
+
+if (backBtn) {
+  backBtn.addEventListener("click", () => {
+    // Fade out the card first
+    japanSection.classList.remove("revealed");
+    
+    // Wait for card to fade, then show torii gate again
+    setTimeout(() => {
+      toriiOverlay.classList.remove("hidden");
+      
+      // Small delay before removing zooming class for smooth fade-in
+      setTimeout(() => {
+        toriiOverlay.classList.remove("zooming");
+      }, 50);
+    }, 1000);
+  });
+}
 
 // Fetch Clash Royale Stats
 const CR_API_URL = "/api/clashroyale";

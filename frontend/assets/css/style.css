@@ -273,6 +273,7 @@ header h1 {
 
 .card-content {
   padding: 1.5rem;
+  text-align: center;
 }
 
 .card-content h3 {
@@ -486,19 +487,182 @@ footer {
   font-size: 1.1rem;
 }
 
-/* Japan section hack */
+/* Japan section */
+#japan-trip {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 3rem;
+}
+
+.japan-title {
+  font-size: 2.5rem;
+  color: #ff7b00;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 1px;
+  z-index: 50;
+  position: relative;
+}
+
+.japan-back-btn {
+  display: block;
+  margin: 1rem auto 0;
+  color: #ffd700;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease 0.3s, text-shadow 0.3s ease;
+  letter-spacing: 2px;
+  font-weight: 300;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  animation: none;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#japan-trip.revealed .japan-back-btn {
+  opacity: 1;
+  pointer-events: auto;
+  animation: fade-pulse 2s ease-in-out infinite;
+}
+
+.japan-back-btn:hover {
+  text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+}
+
+.japan-content-wrapper {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #japan-trip .gallery {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 #japan-trip .japan-card {
   max-width: 420px;
   width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease 0.5s;
+}
+
+#japan-trip.revealed .japan-card {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 #japan-trip .japan-card img {
   height: auto;
   aspect-ratio: 2 / 3;
   object-fit: cover;
+}
+
+/* Torii Gate Overlay */
+#torii-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.8s ease, transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 100;
+}
+
+#torii-overlay.zooming {
+  transform: scale(3);
+  opacity: 0;
+  pointer-events: none;
+}
+
+#torii-overlay.hidden {
+  display: none;
+}
+
+.torii-container {
+  position: relative;
+  width: 90%;
+  max-width: 800px;
+  aspect-ratio: 3264 / 2448;
+}
+
+.torii-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  height: 40%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 215, 0, 0.4) 0%,
+    rgba(255, 200, 0, 0.2) 30%,
+    transparent 70%
+  );
+  filter: blur(30px);
+  animation: pulse-glow 2s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes pulse-glow {
+  from {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+.torii-image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+  transition: filter 0.3s ease;
+}
+
+#torii-overlay:hover .torii-image {
+  filter: drop-shadow(0 10px 40px rgba(255, 215, 0, 0.3));
+}
+
+.torii-hint {
+  position: absolute;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ffd700;
+  font-size: 1.2rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  animation: fade-pulse 2s ease-in-out infinite;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+@keyframes fade-pulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
 }
